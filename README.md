@@ -1,5 +1,5 @@
 ##### `source` [hackmd.io](https://hackmd.io/nvkpyo3UQTa689uGz373eg)
-##### tags: `accessability` `LMS` `education` `tech` `React` `Python` `Flask`
+##### tags: `accessibility` `LMS` `education` `tech` `React` `Python` `Flask`
 # MLH A11y
 
 Building an interactive learning management system (LMS) that helps expose MLH Fellows to digital accessibility by providing resources and an intro to automated accessibility testing.
