@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_migrate import Migrate
 from api.models import *
@@ -23,6 +23,13 @@ migrate = Migrate(app, db)
 @app.route("/")
 def index():
     return "hello"
+
+@app.route("/unit/<unit>")
+def topic_unit(unit):
+    file = "api/topics/unit{unit}.md".format(unit=unit)
+    with open(file) as f:
+        data = f.read()
+        return data
 
 @app.route("/login", methods=("GET", "POST"))
 def login():
@@ -63,7 +70,8 @@ def login():
 def register():
     username = "memo"
     password = "memo"
-    new_user = User(username, generate_password_hash(password))
+    new_user = User(username, generate_password_hash(password), 0)
+
     db.session.add(new_user)
     db.session.commit()
     return f"User {username} created successfully"
