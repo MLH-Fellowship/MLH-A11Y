@@ -1,67 +1,70 @@
-##### `source` [hackmd.io](https://hackmd.io/nvkpyo3UQTa689uGz373eg)
-##### tags: `accessibility` `LMS` `education` `tech` `React` `Python` `Flask`
-# MLH A11y
+# Getting Started with Create React App
 
-Building an interactive learning management system (LMS) that helps expose MLH Fellows to digital accessibility by providing resources and an intro to automated accessibility testing.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Tech Stack
+## Available Scripts
 
-- Back-end: Python, Flask (API, send back data)
-- Front-end: React (API calls)
+In the project directory, you can run:
 
-Database Requirements
+### `npm start`
 
-- Authentication (Login/Register)
-- Progress Counter
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-LMS Platform Requirements
-- Framework
-    - Markdown >> React
-        - https://github.com/remarkjs/react-markdown
-        - https://github.com/markedjs/marked
-- At least 3 small Units/Sections
-    - Small Unit 1
-    	- Alt text (what does a website experience feel like for a screen reader?)
-    	- Animations (how to make websites more accessible for people with epilepsy?)
-    	- etc.
-    - Small Unit 2
-        - note
-    - Small Unit 3
-			- Note
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-### MLH Requirements
+### `npm test`
 
-Web Server
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-- A backend web server that will host the application. This must be written using Python, but you're not limited to Flask.
-- You're welcome to have a separate front end written in React and treat the backend as an API, but this is not a requirement. We encourage that you don't do this unless you're confident using React or a similar JavaScript framework.
+### `npm run build`
 
-Database
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-- This can be any type of database, but bonus points for having it inside of a Docker container. It needs to be running on the same machine, and can't be hosted in the cloud like Firebase.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-Container
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-- You need at least 1 container so the final project is deployed using Docker.
-- Bonus points for isolating different components like your web server, database, and NGINX.
+### `npm run eject`
 
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-CI/CD
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-- You must use a CI/CD system like GitHub Actions to automatically deploy your container to AWS.
-- Bonus points for using CI/CD to run automated tests and linters against your code when you make Pull Requests.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-Monitoring
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-- Your project must have a monitoring system to help you ensure it's operating smoothly. This can be one of the systems covered in Week 6 or something else.
+## Learn More
 
-Deployment
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-- This must be deployed to AWS using a reverse proxy like NGINX.
-- Bonus points for hosting it with a domain. You can grab a .tech domain from Domain.comusing the following offer codes:
+To learn React, check out the [React documentation](https://reactjs.org/).
 
+### Code Splitting
 
-Sprint 1: AUG21HACK
-Sprint 2: MINTCHOCOCHIP
-Sprint 3: ICECREAMSUNDAE
-Note: the code changes on Fridays. Sprint 2 code will begin on August 6th.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
