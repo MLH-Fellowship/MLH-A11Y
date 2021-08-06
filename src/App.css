@@ -1,6 +1,14 @@
 .App {
 }
 
+nav {
+  
+}
+
+ul {
+  list-style: none;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

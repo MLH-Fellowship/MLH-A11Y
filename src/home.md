@@ -1,3 +1,3 @@
-# HOME page
+# Home page
 
 Introduction to our LMS
