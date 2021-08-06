@@ -7,7 +7,7 @@ const UserMarkdown = (props) => {
     const [markdown, setMarkdown] = React.useState('Loading')
 
     React.useEffect(() => {
-        axios.get(`https://raw.githubusercontent.com/MLH-Fellowship/MLH-A11Y/ashley/public/userprofile.md`)
+        axios.get(`https://raw.githubusercontent.com/MLH-Fellowship/MLH-A11Y/ashley/app/public/userprofile.md`)
             .then(res => {
                 const p = res.data;
                 setMarkdown(p)
