@@ -1,12 +1,17 @@
-.App {
-}
-
-nav {
-  
+.page-content {
+  margin: 50px;
 }
 
 ul {
   list-style: none;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  margin-left: 100px;
 }
 
 .App-logo {
