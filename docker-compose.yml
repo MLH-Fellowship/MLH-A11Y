@@ -1,0 +1,81 @@
+version: "3" # version of docker-compose we want to use
+
+# Use web service image built on docker file in current directory
+services: 
+  client:
+    build: app
+    command: ["npm", "start"]
+    volumes:
+      - ./app:/app
+      - node-modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+    ports:
+      - 3000:3000
+    depends_on: 
+      - api
+  api:
+    container_name: flask-api
+    ports: 
+      - 5000:5000
+    # build image from dockerfile inside current dir using "." 
+    build: api
+    restart: always
+    # pass environment variables from docker environment
+    environment:
+      - FLASK_ENV=development
+    env_file:
+      - .env
+    volumes:
+      - ./api:/api
+    depends_on:
+      - db
+  db:
+    container_name: postgre-db
+    image: postgres
+    restart: always
+    # Add persistence to postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+volumes:
+  node-modules:
+  db:
+
+  # nginx
+  # nginx:
+  #   container_name: nginx
+  #   image: jonasal/nginx-certbot:latest
+  #   restart: unless-stopped
+  #   env_file:
+  #     - ./nginx-certbot.env
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   volumes:
+  #     - nginx_secrets:/etc/letsencrypt
+  #     - ./user_conf.d:/etc/nginx/user_conf.d
+  #   depends_on:
+  #     - web
+
+  # cadvisor:
+  #   container_name: cadvisor
+  #   image: gcr.io/cadvisor/cadvisor:latest
+  #   restart: unless-stopped
+  #   ports:
+  #     - 8080:8080
+  #   volumes:
+  #     - /:/roots:ro
+  #     - /var/run:/var/run:rw
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+
+
+
+# We are no longer exposing 5432  but flask is still able 
+# to access the db since both images are in the same network
+# Now web container depends on db, so the first db container
+# is started onle when web container is started
+# 
