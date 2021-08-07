@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, request, send_file
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_migrate import Migrate
-from api.models import *
+from src.models import *
 
 app = Flask(__name__)
 

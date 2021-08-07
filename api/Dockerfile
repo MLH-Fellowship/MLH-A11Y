@@ -9,11 +9,10 @@ WORKDIR /api
 # Install python dependencies
 RUN pip3 install -r requirements.txt
 # Copy all files in this project to container
-COPY . /api
-
+COPY . .
 # Add a .sh file to run commands instead of running them individually
-RUN chmod u+x ./entrypoint.sh
-ENTRYPOINT ["sh", "./entrypoint.sh"]
+RUN chmod u+x entrypoint.sh
+ENTRYPOINT ["sh", "entrypoint.sh"]
 
 
 # Build container
