@@ -1,5 +1,5 @@
 import './App.css';
-import Markdown2 from './markdown2';
+import Unit1 from './unit1';
 import HomeMarkdown from './home';
 import UserMarkdown from './userprofile';
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
@@ -38,7 +38,7 @@ function App() {
         <div class="page-content">
           <Switch>
             <Route path="/unit1">
-              <Markdown2 unit={"1"}/>
+              <Unit1 unit={"1"}/>
             </Route>
             <Route path="/user">
               <UserMarkdown />
