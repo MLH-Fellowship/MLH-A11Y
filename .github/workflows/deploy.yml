@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: "Deploy to AWS EC2 Virtual Machine"
+    name: "Deploy to AWS EC2 Instance"
     runs-on: ubuntu-latest
     steps:
       - name: Configure SSH
