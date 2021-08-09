@@ -3,7 +3,7 @@ RUN mkdir /app
 WORKDIR /app
 
 # Copy both package + package-lock files
-COPY package*.json /app
+COPY package*.json /app/
 RUN npm install
 COPY . /app
 
