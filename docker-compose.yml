@@ -35,7 +35,11 @@ services:
     restart: always
     # Add persistence to postgres
     volumes:
+<<<<<<< HEAD
+      - my_database:/var/lib/postgresql/data
+=======
       - db:/var/lib/postgresql/data
+>>>>>>> 680b36ad2e56dbca4388a21ae1802fabd7382194
     env_file:
       - .env
 
@@ -71,7 +75,13 @@ volumes:
   #     - /sys:/sys:ro
   #     - /var/lib/docker/:/var/lib/docker:ro
 
+<<<<<<< HEAD
+volumes:
+  my_database:
+#   nginx_secrets:
+=======
 
+>>>>>>> 680b36ad2e56dbca4388a21ae1802fabd7382194
 
 # We are no longer exposing 5432  but flask is still able 
 # to access the db since both images are in the same network
