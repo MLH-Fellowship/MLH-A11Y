@@ -4,10 +4,9 @@ version: "3" # version of docker-compose we want to use
 services: 
   client:
     build: app
-    command: ["npm", "start"]
-    volumes:
-      - ./app:/app
-      - node-modules:/app/node_modules
+    # volumes:
+    #   - ./app:/app
+    #   - node-modules:/app/node_modules
     environment:
       - NODE_ENV=development
     ports:
@@ -26,8 +25,8 @@ services:
       - FLASK_ENV=development
     env_file:
       - .env
-    volumes:
-      - ./api:/api
+    # volumes:
+    #   - ./api:/api
     depends_on:
       - db
   db:
