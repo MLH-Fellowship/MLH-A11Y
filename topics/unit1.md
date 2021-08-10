@@ -58,9 +58,9 @@ See the comment in the code editor below? Replace that text with the syntax abov
 
 ## Answer
 
-<details><summary>Need a hint?</summary>
+### Need a hint?
 Try checking out the syntax for implementing English-language captions provided above!
-</details>
+
 
 ### A quick note
 There might be multiple answers! Digital accessibility can be implemented in many different ways, but here's one implementation we like.
