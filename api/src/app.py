@@ -1,12 +1,17 @@
 import os
-from flask import Flask, render_template, request, send_file
+from flask import Flask
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_migrate import Migrate
-from src.models import *
+from src.models import db, User
+
+# Currently unused imports (as of 8/9)
+# from Flask import render_template, request, send_file
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{table}".format(
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{table}".format(
     user=os.getenv("POSTGRES_USER"),
     passwd=os.getenv("POSTGRES_PASSWORD"),
     host=os.getenv("POSTGRES_HOST"),
@@ -24,12 +29,14 @@ migrate = Migrate(app, db)
 def index():
     return "hello"
 
+
 @app.route("/unit/<unit>")
 def topic_unit(unit):
     file = "api/topics/unit{unit}.md".format(unit=unit)
     with open(file) as f:
         data = f.read()
         return data
+
 
 @app.route("/login", methods=("GET", "POST"))
 def login():
@@ -41,7 +48,7 @@ def login():
         error = "Incorrect username"
     elif not check_password_hash(user.password, password):
         error = "Incorrect Password"
-    
+
     if error is None:
         return "Logged in as {user}".format(user=username)
     else:
@@ -75,7 +82,7 @@ def register():
     db.session.add(new_user)
     db.session.commit()
     return f"User {username} created successfully"
-    
+
     # if request.method == "POST":
     #     username = request.form.get("username")
     #     password = request.form.get("password")

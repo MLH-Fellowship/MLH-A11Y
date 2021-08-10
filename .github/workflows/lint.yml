@@ -32,5 +32,5 @@ jobs:
       with:
         black: true
         flake8: true
-        black_dir: api/
-        flake8_args: "api/"
+        black_dir: api/src/
+        flake8_args: "api/src/"
