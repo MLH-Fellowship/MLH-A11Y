@@ -28,15 +28,7 @@ services:
     restart: always
     # Add persistence to postgres
     volumes:
-<<<<<<< HEAD
-<<<<<<< HEAD
-      - my_database:/var/lib/postgresql/data
-=======
       - db:/var/lib/postgresql/data
->>>>>>> 570f7481be49953626b0fbe00f536afd64813b82
-=======
-      - db:/var/lib/postgresql/data
->>>>>>> 505364ae1b8ec491e74f4f51e14f355e5d139288
     env_file:
       - .env
 
