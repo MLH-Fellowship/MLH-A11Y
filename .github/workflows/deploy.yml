@@ -29,7 +29,7 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
 
       - name: Deploy site
-        run: ssh my-vm 'cd ${{ secrets.PROJECT_DIR }} && git fetch && git reset --hard origin/master && docker-compose down && docker-compose up -d --build'
+        run: ssh my-vm 'cd ${{ secrets.PROJECT_DIR }} && git fetch && git reset --hard origin/main && docker-compose down && docker-compose up -d --build'
 
       - name: Check deploy status
         run: ssh my-vm 'cd ${{ secrets.PROJECT_DIR }} && docker-compose ps'
