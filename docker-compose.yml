@@ -1,8 +1,8 @@
 version: "3" # version of docker-compose we want to use
 
-# Use web service image built on docker file in current directory
 services: 
   client:
+    # build represents where to find docker file (i.e. /app foleder)
     build: app
     env_file:
       - .env
@@ -14,7 +14,7 @@ services:
     container_name: flask-api
     ports: 
       - 5000:5000
-    # build image from dockerfile inside current dir using "." 
+    # build represents where to find docker file (i.e. /api foleder)
     build: api
     restart: always
     # pass environment variables from docker environment
@@ -33,7 +33,6 @@ services:
       - .env
 
 volumes:
-  node-modules:
   db:
 
   # nginx
@@ -63,14 +62,6 @@ volumes:
   #     - /var/run:/var/run:rw
   #     - /sys:/sys:ro
   #     - /var/lib/docker/:/var/lib/docker:ro
-
-<<<<<<< HEAD
-volumes:
-  my_database:
-#   nginx_secrets:
-=======
-
->>>>>>> 680b36ad2e56dbca4388a21ae1802fabd7382194
 
 # We are no longer exposing 5432  but flask is still able 
 # to access the db since both images are in the same network
