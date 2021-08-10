@@ -4,11 +4,8 @@ version: "3" # version of docker-compose we want to use
 services: 
   client:
     build: app
-    # volumes:
-    #   - ./app:/app
-    #   - node-modules:/app/node_modules
-    environment:
-      - NODE_ENV=development
+    env_file:
+      - .env
     ports:
       - 3000:3000
     depends_on: 
@@ -21,12 +18,8 @@ services:
     build: api
     restart: always
     # pass environment variables from docker environment
-    environment:
-      - FLASK_ENV=development
     env_file:
       - .env
-    # volumes:
-    #   - ./api:/api
     depends_on:
       - db
   db:
@@ -35,11 +28,7 @@ services:
     restart: always
     # Add persistence to postgres
     volumes:
-<<<<<<< HEAD
-      - my_database:/var/lib/postgresql/data
-=======
       - db:/var/lib/postgresql/data
->>>>>>> 680b36ad2e56dbca4388a21ae1802fabd7382194
     env_file:
       - .env
 
