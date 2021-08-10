@@ -4,8 +4,6 @@ services:
   client:
     # build represents where to find docker file (i.e. /app foleder)
     build: app
-    volumes: 
-      - ./app:/app
     env_file:
       - .env
     ports:
@@ -14,8 +12,6 @@ services:
       - api
   api:
     container_name: flask-api
-    volumes:
-      - ./api:/api
     ports: 
       - 5000:5000
     # build represents where to find docker file (i.e. /api foleder)
