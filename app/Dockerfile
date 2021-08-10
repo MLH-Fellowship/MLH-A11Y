@@ -1,5 +1,10 @@
-FROM node:10.15.2-alpine
+FROM node:14-alpine
 RUN mkdir /app
 WORKDIR /app
-COPY package.json /app/package.json
+
+# Copy both package + package-lock files
+COPY package*.json /app/
 RUN npm install
+COPY . /app
+
+ENTRYPOINT ["npm", "start"]

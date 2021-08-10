@@ -1,15 +1,11 @@
 version: "3" # version of docker-compose we want to use
 
-# Use web service image built on docker file in current directory
 services: 
   client:
+    # build represents where to find docker file (i.e. /app foleder)
     build: app
-    command: ["npm", "start"]
-    volumes:
-      - ./app:/app
-      - node-modules:/app/node_modules
-    environment:
-      - NODE_ENV=development
+    env_file:
+      - .env
     ports:
       - 3000:3000
     depends_on: 
@@ -18,16 +14,12 @@ services:
     container_name: flask-api
     ports: 
       - 5000:5000
-    # build image from dockerfile inside current dir using "." 
+    # build represents where to find docker file (i.e. /api foleder)
     build: api
     restart: always
     # pass environment variables from docker environment
-    environment:
-      - FLASK_ENV=development
     env_file:
       - .env
-    volumes:
-      - ./api:/api
     depends_on:
       - db
   db:
@@ -37,15 +29,18 @@ services:
     # Add persistence to postgres
     volumes:
 <<<<<<< HEAD
+<<<<<<< HEAD
       - my_database:/var/lib/postgresql/data
 =======
       - db:/var/lib/postgresql/data
 >>>>>>> 570f7481be49953626b0fbe00f536afd64813b82
+=======
+      - db:/var/lib/postgresql/data
+>>>>>>> 505364ae1b8ec491e74f4f51e14f355e5d139288
     env_file:
       - .env
 
 volumes:
-  node-modules:
   db:
 
   # nginx
@@ -77,6 +72,7 @@ volumes:
   #     - /var/lib/docker/:/var/lib/docker:ro
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 volumes:
   my_database:
 #   nginx_secrets:
@@ -84,6 +80,8 @@ volumes:
 
 >>>>>>> 570f7481be49953626b0fbe00f536afd64813b82
 
+=======
+>>>>>>> 505364ae1b8ec491e74f4f51e14f355e5d139288
 # We are no longer exposing 5432  but flask is still able 
 # to access the db since both images are in the same network
 # Now web container depends on db, so the first db container
