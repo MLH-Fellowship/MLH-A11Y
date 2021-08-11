@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy both package + package-lock files
 COPY package*.json /app/
-RUN npm install
+RUN npm install --only=production
 COPY . /app
 
 ENTRYPOINT ["npm", "start"]
