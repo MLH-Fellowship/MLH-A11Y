@@ -26,4 +26,4 @@ jobs:
 
     - name: Build
       run: |
-        docker build .
+        docker build ./api && docker build ./app
