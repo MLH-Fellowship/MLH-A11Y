@@ -2,23 +2,25 @@ version: "3" # version of docker-compose we want to use
 
 services: 
   client:
-    # build represents where to find docker file (i.e. /app foleder)
+    # build represents where to find docker file (i.e. /app folder)
+    container_name: client
     build: app
     volumes: 
       - ./app:/app
     env_file:
       - .env
     ports:
-      - 3000:3000
+      - 3000:80
     depends_on: 
       - api
+
   api:
     container_name: flask-api
     volumes:
       - ./api:/api
     ports: 
       - 5000:5000
-    # build represents where to find docker file (i.e. /api foleder)
+    # build represents where to find docker file (i.e. /api folder)
     build: api
     restart: always
     # pass environment variables from docker environment
@@ -26,8 +28,9 @@ services:
       - .env
     depends_on:
       - db
+
   db:
-    container_name: postgre-db
+    container_name: postgres-db
     image: postgres
     restart: always
     # Add persistence to postgres
@@ -36,40 +39,37 @@ services:
     env_file:
       - .env
 
+  nginx:
+    container_name: nginx
+    image: jonasal/nginx-certbot:latest
+    restart: unless-stopped
+    env_file:
+      - ./nginx-certbot.env
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - nginx_secrets:/etc/letsencrypt
+      - ./user_conf.d:/etc/nginx/user_conf.d
+    depends_on:
+      - web
+
+  cadvisor:
+    container_name: cadvisor
+    image: gcr.io/cadvisor/cadvisor:latest
+    restart: unless-stopped
+    volumes:
+      - /:/roots:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
 volumes:
   my_database:
+  nginx_secrets:
 
-  # nginx
-  # nginx:
-  #   container_name: nginx
-  #   image: jonasal/nginx-certbot:latest
-  #   restart: unless-stopped
-  #   env_file:
-  #     - ./nginx-certbot.env
-  #   ports:
-  #     - 80:80
-  #     - 443:443
-  #   volumes:
-  #     - nginx_secrets:/etc/letsencrypt
-  #     - ./user_conf.d:/etc/nginx/user_conf.d
-  #   depends_on:
-  #     - web
 
-  # cadvisor:
-  #   container_name: cadvisor
-  #   image: gcr.io/cadvisor/cadvisor:latest
-  #   restart: unless-stopped
-  #   ports:
-  #     - 8080:8080
-  #   volumes:
-  #     - /:/roots:ro
-  #     - /var/run:/var/run:rw
-  #     - /sys:/sys:ro
-  #     - /var/lib/docker/:/var/lib/docker:ro
-
-#   nginx_secrets:
-# We are no longer exposing 5432  but flask is still able 
-# to access the db since both images are in the same network
+# We are no longer exposing 5432, but Flask is still able 
+# to access the db since both images are on the same network.
 # Now web container depends on db, so the first db container
-# is started onle when web container is started
-# 
+# is started only when web container is started.
