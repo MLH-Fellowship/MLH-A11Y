@@ -33,4 +33,4 @@ jobs:
         black: true
         flake8: true
         black_dir: api/src/
-        flake8_args: "api/src/"
+        flake8_args: "api/src/ --max-line-length=100"

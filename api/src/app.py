@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, send_file
+from flask import Flask, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_migrate import Migrate
 from src.models import db, User
@@ -55,7 +55,7 @@ def login():
         else:
             return error, 418
     else:
-        error = "Please make sure to have the correct parameteres + request (POST)"
+        error = "Please make sure to have the correct parameters + request (POST)"
     return error, 418
 
 
@@ -82,7 +82,7 @@ def register():
             return error, 418
 
     else:
-        error = "Please make sure to have the correct parameteres + request (POST)"
+        error = "Please make sure to have the correct parameters + request (POST)"
     return error, 418
 
 
