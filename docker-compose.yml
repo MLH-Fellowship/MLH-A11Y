@@ -52,7 +52,7 @@ services:
       - nginx_secrets:/etc/letsencrypt
       - ./user_conf.d:/etc/nginx/user_conf.d
     depends_on:
-      - web
+      - client
 
   cadvisor:
     container_name: cadvisor
