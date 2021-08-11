@@ -55,7 +55,8 @@ def login():
         else:
             return error, 418
     else:
-        error = "Invalid parameters (username, password)"
+        error = "Please make sure to have the correct parameters + request (POST)"
+
     return error, 418
 
 
@@ -82,7 +83,7 @@ def register():
             return error, 418
 
     else:
-        error = "Invalid parameters (username, password)"
+        error = "Please make sure to have the correct parameters + request (POST)"
     return error, 418
 
 
