@@ -1,22 +1,23 @@
 import React from 'react';
-
 import axios from 'axios';
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown';
 
 const HomeMarkdown = (props) => {
-    const [markdown, setMarkdown] = React.useState('Under Construction')
-
-    React.useEffect(() => {
-        axios.get(``)
-            .then(res => {
-                const p = res.data;
-                setMarkdown(p)
-            })
-    }, [])
 
     return (
-        <div>
-             <ReactMarkdown>{markdown}</ReactMarkdown>
+        <div >
+            <h2>Login Page</h2>
+            <br />
+            <form >
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="username" placeholder="Username"></input>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+             
         </div>
     )
 }
