@@ -56,6 +56,7 @@ def login():
             return error, 418
     else:
         error = "Please make sure to have the correct parameters + request (POST)"
+
     return error, 418
 
 
