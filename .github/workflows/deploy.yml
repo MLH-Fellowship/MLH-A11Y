@@ -42,7 +42,7 @@ jobs:
       #   run: sleep 5 && bash prod-test.sh
 
       - name: Discord success notification
-        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful! Check it out at {INSERT URL HERE}"
+        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful! Check it out at https://mlha11y.tech"
 
       - name: Discord failure notification
         if: ${{ failure() }}
