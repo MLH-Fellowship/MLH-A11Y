@@ -10,7 +10,7 @@ services:
     env_file:
       - .env
     ports:
-      - 80:3000
+      - 80:80
     depends_on: 
       - api
 
@@ -54,21 +54,21 @@ services:
   #   depends_on:
   #     - client
 
-  cadvisor:
-    container_name: cadvisor
-    image: gcr.io/cadvisor/cadvisor:latest
-    restart: unless-stopped
-    ports: 
-      - 81:81
-    volumes:
-      - /:/roots:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
+  # cadvisor:
+  #   container_name: cadvisor
+  #   image: gcr.io/cadvisor/cadvisor:latest
+  #   restart: unless-stopped
+  #   ports: 
+  #     - 81:81
+  #   volumes:
+  #     - /:/roots:ro
+  #     - /var/run:/var/run:rw
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
 
 volumes:
   my_database:
-  nginx_secrets:
+  # nginx_secrets:
 
 
 # We are no longer exposing 5432, but Flask is still able 
