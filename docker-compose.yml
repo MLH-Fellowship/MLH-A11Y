@@ -9,17 +9,19 @@ services:
       - ./app:/app
     env_file:
       - .env
-    ports:
-      - 80:3000
+    # ports:
+    #   - 3000:3000
     depends_on: 
       - api
+    networks: 
+      - nginx_client
 
   api:
     container_name: flask-api
     volumes:
       - ./api:/api
-    ports: 
-      - 5000:5000
+    # ports: 
+    #   - 5000:5000
     # build represents where to find docker file (i.e. /api folder)
     build: api
     restart: always
@@ -28,6 +30,8 @@ services:
       - .env
     depends_on:
       - db
+    networks: 
+      - nginx_api
 
   db:
     container_name: postgres-db
@@ -38,22 +42,43 @@ services:
       - my_database:/var/lib/postgresql/data
     env_file:
       - .env
+    networks: 
+      - api_db_network
 
-  cadvisor:
-    container_name: cadvisor
-    image: gcr.io/cadvisor/cadvisor:latest
-    restart: unless-stopped
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    restart: always
     ports:
-      - 8080:8080
+      - 80:80
     volumes:
-      - /:/roots:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
+      - ./nginx/nginx-conf-dev.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - nginx_client
+      - nginx_api
+
+  # cAdvisor always works, commenting to focus on what we are building
+  # cadvisor:
+  #   container_name: cadvisor
+  #   image: gcr.io/cadvisor/cadvisor:latest
+  #   restart: unless-stopped
+  #   ports:
+  #     - 8080:8080
+  #   volumes:
+  #     - /:/roots:ro
+  #     - /var/run:/var/run:rw
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
 
 volumes:
   my_database:
 
+
+# Added for extra security (client doesn't have access to DB)
+networks:
+  api_db_network:
+  nginx_client:
+  nginx_api:
 
 # We are no longer exposing 5432, but Flask is still able 
 # to access the db since both images are on the same network.

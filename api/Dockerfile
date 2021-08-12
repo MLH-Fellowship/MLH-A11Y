@@ -12,4 +12,6 @@ RUN pip3 install -r requirements.txt
 COPY . .
 # Add a .sh file to run commands instead of running them individually
 RUN chmod u+x entrypoint.sh
+
+EXPOSE 5000
 ENTRYPOINT ["sh", "entrypoint.sh"]

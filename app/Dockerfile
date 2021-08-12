@@ -9,5 +9,5 @@ RUN yarn install
 COPY . /app
 
 # Production version
-# ENTRYPOINT ["serve", "-s", "build", "-l", "80"]
+EXPOSE 3000
 ENTRYPOINT [ "yarn", "start" ]
