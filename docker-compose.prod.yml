@@ -51,7 +51,7 @@ services:
     image: gcr.io/cadvisor/cadvisor:latest
     restart: unless-stopped
     ports: 
-      - 81:81
+      - 8080:8080
     volumes:
       - /:/roots:ro
       - /var/run:/var/run:rw
