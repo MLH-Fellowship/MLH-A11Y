@@ -50,6 +50,8 @@ services:
     container_name: cadvisor
     image: gcr.io/cadvisor/cadvisor:latest
     restart: unless-stopped
+    ports: 
+      - 81:81
     volumes:
       - /:/roots:ro
       - /var/run:/var/run:rw
