@@ -1,7 +1,7 @@
 import React from 'react';
 
-import axios from 'axios';
-import ReactMarkdown from 'react-markdown';
+// import axios from 'axios';
+// import ReactMarkdown from 'react-markdown';
 
 const HomeMarkdown = (props) => {
 
@@ -17,8 +17,8 @@ const HomeMarkdown = (props) => {
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"></input>
                 </div>
                 <button type="submit" class="btn btn-primary">Create Account</button>
-                </form>
-             
+            </form>
+
         </div>
     )
 }

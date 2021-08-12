@@ -4,7 +4,6 @@ WORKDIR /app
 
 # Copy both package + package-lock files
 COPY package*.json /app/
+RUN yarn install
 COPY . /app
-RUN npm install --only=production
-
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["yarn", "start"]
