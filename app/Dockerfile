@@ -5,10 +5,10 @@ WORKDIR /app
 # Copy package file and install
 COPY package*.json /app/
 RUN yarn install
+
+# Copy all files and build project
 COPY . /app
 
 # Production version
-RUN yarn global add serve
-COPY /build /app/build/
-
-ENTRYPOINT ["serve", "-s", "build", "-l", "80"]
+# ENTRYPOINT ["serve", "-s", "build", "-l", "80"]
+ENTRYPOINT [ "yarn", "run" ]
