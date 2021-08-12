@@ -10,4 +10,4 @@ COPY . /app
 
 # Production version
 # ENTRYPOINT ["serve", "-s", "build", "-l", "80"]
-ENTRYPOINT [ "yarn", "run" ]
+ENTRYPOINT [ "yarn", "start" ]
