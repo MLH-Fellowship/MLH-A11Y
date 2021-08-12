@@ -9,10 +9,10 @@ services:
       - .env
     depends_on: 
       - api
+    networks: 
+      - nginx_client
   api:
     container_name: flask-api
-    ports: 
-      - 5000:5000
     # build represents where to find docker file (i.e. /api folder)
     build: api
     restart: always
@@ -21,6 +21,9 @@ services:
       - .env
     depends_on:
       - db
+    networks: 
+      - nginx_api
+      - api_db
   db:
     container_name: postgres-db
     image: postgres
@@ -30,6 +33,8 @@ services:
       - my_database:/var/lib/postgresql/data
     env_file:
       - .env
+    networks: 
+      - api_db
 
   nginx:
     container_name: nginx
@@ -42,25 +47,34 @@ services:
       - 443:443
     volumes:
       - nginx_secrets:/etc/letsencrypt
-      - ./user_conf.d:/etc/nginx/user_conf.d
+      - ./nginx/nginx-conf.conf:/etc/nginx/user_conf.d/default.conf:ro
     depends_on:
       - client
+    networks: 
+      - nginx_api
+      - nginx_client
 
-  cadvisor:
-    container_name: cadvisor
-    image: gcr.io/cadvisor/cadvisor:latest
-    restart: unless-stopped
-    ports: 
-      - 8080:8080
-    volumes:
-      - /:/roots:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
+  # cadvisor:
+  #   container_name: cadvisor
+  #   image: gcr.io/cadvisor/cadvisor:latest
+  #   restart: unless-stopped
+  #   ports: 
+  #     - 8080:8080
+  #   volumes:
+  #     - /:/roots:ro
+  #     - /var/run:/var/run:rw
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
 
 volumes:
   my_database:
   nginx_secrets:
+
+# Extra layer of security
+networks: 
+  api_db:
+  nginx_client:
+  nginx_api:
 
 #   nginx_secrets:
 # We are no longer exposing 5432, but Flask is still able 
