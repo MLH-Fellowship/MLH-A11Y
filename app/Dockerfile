@@ -5,7 +5,7 @@ WORKDIR /app
 # Copy package file and install
 COPY package*.json /app/
 RUN yarn install
-
+RUN yarn install react-scripts@3.4.1
 # Copy all files and build project
 COPY . /app
 
