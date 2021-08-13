@@ -48,12 +48,14 @@ We've also received the syntax for implementing English-language captions:
 
 See the comment in the code editor below? Replace that text with the syntax above, and substitute the labels, source language, and file path to help us find out what the characters in the video are saying!
 
-```html
+<div style="background-color: rgb(50, 50, 50);">
+```
 <video id="my-video-stream" width="800" height="600" controls>
   <source src="sample_video.mp4" type="video/mp4"> 
   '{INSERT CAPTION HERE}'
 </video>
 ```
+</div>
 
 ## Answer
 
