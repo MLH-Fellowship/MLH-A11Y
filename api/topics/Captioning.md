@@ -48,16 +48,17 @@ We've also received the syntax for implementing English-language captions:
 
 See the comment in the code editor below? Replace that text with the syntax above, and substitute the labels, source language, and file path to help us find out what the characters in the video are saying!
 
-<div style="background-color: rgb(50, 50, 50);">
-
-```
+```html
 <video id="my-video-stream" width="800" height="600" controls>
   <source src="sample_video.mp4" type="video/mp4"> 
   '{INSERT CAPTION HERE}'
 </video>
 ```
 
-</div>
+<figure>
+<iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nikhilvytla1/CaptioningExercise1?lite=1?outputonly=1">
+</iframe>
+</figure>
 
 ## Answer
 
@@ -72,8 +73,5 @@ There might be multiple answers! Digital accessibility can be implemented in man
 <track label="English" kind="captions" srclang="en" src="files/captions.txt" default>
 ```
 
-<figure>
-<iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nikhilvytla1/CaptioningExercise1?lite=1?outputonly=1">
-</iframe>
-</figure>
+
 
