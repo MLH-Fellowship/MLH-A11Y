@@ -77,9 +77,3 @@ networks:
   nginx_client:
   nginx_api:
 
-#   nginx_secrets:
-# We are no longer exposing 5432, but Flask is still able 
-# to access the db since both images are in the same network.
-# Now web container depends on db, so the first db container
-# is started only when web container is started.
-# 
