@@ -34,13 +34,13 @@ Here are a few more examples!
 ## How might we help?
 To implement captioning in HTML, yous must have a captioning file available. In the following example, the captioning file we need is located at the following path.
 
-```
+```html
 files/eng_captions.txt
 ```
 
 We've also received the syntax for implementing English-language captions:
 
-```
+```html
 <track label="English" kind="captions" srclang=en" src=""{filepath}" default>
 ```
 
@@ -48,15 +48,12 @@ We've also received the syntax for implementing English-language captions:
 
 See the comment in the code editor below? Replace that text with the syntax above, and substitute the labels, source language, and file path to help us find out what the characters in the video are saying!
 
-```
+```html
 <video id="my-video-stream" width="800" height="600" controls>
   <source src="sample_video.mp4" type="video/mp4"> 
   '{INSERT CAPTION HERE}'
 </video>
 ```
-
-
-
 
 ## Answer
 
@@ -67,7 +64,12 @@ Try checking out the syntax for implementing English-language captions provided 
 ### A quick note
 There might be multiple answers! Digital accessibility can be implemented in many different ways, but here's one implementation we like.
 
-```
+```html
 <track label="English" kind="captions" srclang="en" src="files/captions.txt" default>
 ```
+
+<figure>
+<iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nikhilvytla1/CaptioningExercise1?lite=1?outputonly=1">
+</iframe>
+</figure>
 
