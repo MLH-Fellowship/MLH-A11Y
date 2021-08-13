@@ -3,7 +3,7 @@
 }
 
 ul {
-  list-style: none;
+  list-style: circle;
 }
 
 h1 {
@@ -11,7 +11,7 @@ h1 {
 }
 
 h3, p {
-  margin-left: 100px;
+  /* margin-left: 100px; */
 }
 
 .App-logo {
