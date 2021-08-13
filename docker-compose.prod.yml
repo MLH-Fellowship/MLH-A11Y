@@ -54,6 +54,7 @@ services:
       - nginx_api
       - nginx_client
 
+  # cAdvisor not supported due to AWS instance limits (Memory)
   # cadvisor:
   #   container_name: cadvisor
   #   image: gcr.io/cadvisor/cadvisor:latest
