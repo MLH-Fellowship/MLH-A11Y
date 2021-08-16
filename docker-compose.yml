@@ -5,6 +5,8 @@ services:
     # build represents where to find docker file (i.e. /app folder)
     container_name: client
     build: app
+    volumes:
+    - ./app/src/:/app/src
     env_file:
       - .env
     # ports:
