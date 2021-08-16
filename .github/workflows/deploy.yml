@@ -37,9 +37,8 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
-      # - name: Verify deployment
-      #   Comment out when we add prod-test.sh
-      #   run: sleep 5 && bash prod-test.sh
+      - name: User Auth Test
+        run: sleep 5 && bash prod-test.sh
 
       - name: Discord success notification
         run: sleep 10 && curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful! Check it out at https://mlha11y.tech"
