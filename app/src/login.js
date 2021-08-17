@@ -1,28 +1,26 @@
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 // import ReactMarkdown from 'react-markdown';
 
 const HomeMarkdown = (props) => {
 
-    state = {
-        username: '',
-        password: '',
-      }
-    
+    const [username, setUsername] = React.useState(' ')
+    const [password, setPassword] = React.useState(' ')
+
       handleUsername = event => {
-        this.setState({ username: event.target.value });
+        setUsername(event.target.value);
       }
 
       handlePassword = event => {
-        this.setState({ password: event.target.value });
+        setPassword(event.target.value);
       }
     
       handleSubmit = event => {
         event.preventDefault();
     
         const user = {
-          username: this.state.username,
-          password: this.state.password
+          username: {username},
+          password: {password}
         };
     
         axios.post(`/api/login`, { user })
