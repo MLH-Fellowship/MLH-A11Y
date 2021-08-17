@@ -39,7 +39,7 @@ def topic_unit(unit):
 @app.route("/login", methods=["POST"])
 def login():
     if request.method == "POST":
-        user = request.get_json()['user']
+        user = request.get_json()
         username = user['username']
         password = user['password']
         error = None
@@ -63,7 +63,7 @@ def login():
 @app.route("/register", methods=["POST"])
 def register():
     if request.method == "POST":
-        user = request.get_json()['user']
+        user = request.get_json()
         username = user['username']
         password = user['password']
         error = None

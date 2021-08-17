@@ -25,7 +25,7 @@ export default class Register extends React.Component {
       password: this.state.password
     };
 
-    axios.post(`/api/register`, { user })
+    axios.post(`/api/register`, { "username": user.username, "password": user.password })
       .then(res => {
         // console.log(res);
         console.log(res.data);
