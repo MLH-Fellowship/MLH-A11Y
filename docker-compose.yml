@@ -32,18 +32,19 @@ services:
       - db
     networks: 
       - nginx_api
+      - api_db
 
   db:
     container_name: postgres-db
-    image: postgres
+    image: postgres:latest
     restart: always
     # Add persistence to postgres
     volumes:
-      - my_database:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     env_file:
       - .env
     networks: 
-      - api_db_network
+      - api_db
 
   nginx:
     container_name: nginx
@@ -71,11 +72,11 @@ services:
   #     - /var/lib/docker/:/var/lib/docker:ro
 
 volumes:
-  my_database:
+  db:
 
 
 # Added for extra security (client doesn't have access to DB)
 networks:
-  api_db_network:
+  api_db:
   nginx_client:
   nginx_api:
