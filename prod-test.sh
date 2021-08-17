@@ -20,8 +20,8 @@ password="$RANDOM"
 wrongpassword="wrongpw"
 
 homepage () { curl -s https://mlha11y.tech; }
-register () { curl -d "username=$1&password=$2" -X POST https://mlha11y.tech/api/register; }
-login () { curl -d "username=$1&password=$2" -X POST https://mlha11y.tech/api/login; }
+register () { curl -H "Content-Type: application/json" -d "{\"username\":\"$1\",\"password\":\"$2\"}" -s -X POST https://mlha11y.tech/api/register; }
+login () { curl -H "Content-Type: application/json" -d "{\"username\":\"$1\",\"password\":\"$2\"}" -s -X POST https://mlha11y.tech/api/login; }
 
 assert "$(homepage)" "A11Y"
 assert "$(register "" "$password")" "Username is required."
