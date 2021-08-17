@@ -51,7 +51,7 @@ services:
     image: nginx:alpine
     restart: always
     ports:
-      - 80:80
+      - 280:80
     volumes:
       - ./nginx/nginx-conf-dev.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
