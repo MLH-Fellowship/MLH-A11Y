@@ -2,25 +2,27 @@ import React from 'react';
 import axios from 'axios';
 // import ReactMarkdown from 'react-markdown';
 
-const HomeMarkdown = (props) => {
+export default class Login extends React.Component {
 
-    const [username, setUsername] = React.useState(' ')
-    const [password, setPassword] = React.useState(' ')
+      state = {
+        username: '',
+        password: '',
+      }
 
       handleUsername = event => {
-        setUsername(event.target.value);
+        this.setState({username: event.target.value});
       }
 
       handlePassword = event => {
-        setPassword(event.target.value);
+        this.setState({password: event.target.value});
       }
     
       handleSubmit = event => {
         event.preventDefault();
     
         const user = {
-          username: {username},
-          password: {password}
+          username: this.state.username,
+          password: this.state.password,
         };
     
         axios.post(`/api/login`, { user })
@@ -29,23 +31,22 @@ const HomeMarkdown = (props) => {
             console.log(res.data);
           })
       }
-    
-      return (
-        <div >
-            <h2>Login Page</h2>
-            <br />
-            <form onSubmit={this.handleSubmit}>
-                <div class="mb-3">
-                    <input type="text" class="form-control" id="username" placeholder="Username" onChange={this.handleUsername}></input>
-                </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.handlePassword}></input>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+      render() {
+        return (
+          <div >
+              <h2>Login Page</h2>
+              <br />
+              <form onSubmit={this.handleSubmit}>
+                  <div class="mb-3">
+                      <input type="text" class="form-control" id="username" placeholder="Username" onChange={this.handleUsername}></input>
+                  </div>
+                  <div class="mb-3">
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.handlePassword}></input>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
 
-        </div>
-    )
+          </div>
+        )
+      }
 }
-
-export default HomeMarkdown
