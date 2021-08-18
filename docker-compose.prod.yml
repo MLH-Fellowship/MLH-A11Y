@@ -61,11 +61,11 @@ services:
   #   restart: unless-stopped
   #   ports: 
   #     - 8080:8080
-  #   volumes:
-  #     - /:/roots:ro
-  #     - /var/run:/var/run:rw
-  #     - /sys:/sys:ro
-  #     - /var/lib/docker/:/var/lib/docker:ro
+    # volumes:
+    #   - /:/roots:ro
+    #   - /var/run:/var/run:rw
+    #   - /sys:/sys:ro
+    #   - /var/lib/docker/:/var/lib/docker:ro
 
 volumes:
   my_database:
