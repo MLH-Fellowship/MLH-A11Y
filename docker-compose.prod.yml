@@ -46,6 +46,8 @@ services:
       - 9000:3000
     depends_on: 
       - prometheus
+    networks:
+      - monitoring
 
   prometheus:
     image: prom/prometheus:latest
@@ -58,6 +60,8 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - cadvisor
+    networks: 
+      - monitoring
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
@@ -69,6 +73,8 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - monitoring
 
   nginx:
     container_name: nginx
@@ -87,18 +93,7 @@ services:
     networks: 
       - nginx_api
       - nginx_client
-
-  cadvisor:
-    container_name: cadvisor
-    image: gcr.io/cadvisor/cadvisor:latest
-    restart: unless-stopped
-    ports: 
-      - 8080:8080
-    volumes:
-      - /:/roots:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
+      - monitoring
 
 volumes:
   my_database:
@@ -109,4 +104,5 @@ networks:
   api_db:
   nginx_client:
   nginx_api:
+  monitoring:
 
