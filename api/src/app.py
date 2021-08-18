@@ -1,4 +1,4 @@
-import os, json
+import os
 from flask import Flask, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_migrate import Migrate
@@ -40,8 +40,8 @@ def topic_unit(unit):
 def login():
     if request.method == "POST":
         user = request.get_json()
-        username = user['username']
-        password = user['password']
+        username = user["username"]
+        password = user["password"]
         error = None
         user = User.query.filter_by(username=username).first()
 
@@ -64,8 +64,8 @@ def login():
 def register():
     if request.method == "POST":
         user = request.get_json()
-        username = user['username']
-        password = user['password']
+        username = user["username"]
+        password = user["password"]
         error = None
 
         if not username:
