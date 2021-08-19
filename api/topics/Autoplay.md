@@ -7,30 +7,30 @@ Autoplay on time-based media can be very distracting. It can also just be inconv
 ## Who does this impact?
 
 
-<details><summary>Meet Autumn, a profoundly deaf user.</summary>
+<details><summary>Meet Claudia, a sight impaired screen magnifier user.</summary>
   
-  ### Autumn Says
-"I'm fluent in American Sign Language, but people don't realize that it's different from English and things can be difficult for me to understand."
+  ### Claudia Says
+"My screen magnifier has made it possible for me to use the web again. I just wish more companies kept their websites simple."
   
   ### About Autumn
 
-  * Autumn is 22 years old and lives with his family in Boston. He’s profoundly deaf and is fluent in American Sign Language (ASL).
-  * He’s currently unemployed, and plans to get some more training at college to help him find a job. He started a catering course last year but the interpreter they provided wasn’t fully qualified and didn’t have much experience. Autumn got behind and gave up.
-  * He isn’t very confident about learning new things. He struggles with English because of the differences with ASL in grammar and vocabulary.
-  * Autumn uses ASL as his main language, English is his second languages, and always has video captions switched on.
+  * Claudia is 54 and lives in Hampton with her husband Lex and daughter Diana who is 12. Her other two children are away at university.
+  * Claudia is partially sighted due to glaucoma and diabetes.
+  * She works part time as a social worker with her local city council. She used to visit people in their homes, but lost her confidence as her sight got worse. Now she’s based in the office, and she’s hoping to start training and mentoring new social workers.
   
-  ### Autumn's Technology
-  * Autumn has an Android tablet, and loves being able to sign to his friends on video chat. He's sharing his family's laptop until he can afford his own.
-  * He also has an iPhone that his brother gave him. He's tried using it for video chat, but it's harder to see what people are saying as the screen's quite small.
+  ### Claudia's Technology
+  * Claudia’s setup at work includes ZoomText (software that lets you magnify what’s on screen), a large monitor and a high visibility keyboard. She has a similar setup at home.
+  * She recently got a Kindle Fire for reading - she has tried its screen reader function, but she prefers to use the magnification to read herself or use audiobooks.
+  * Claudia prefers phone calls to emails and never sends text messages. She uses the ‘speech to text’ feature on her smartphone, which records a message and sends it to the person she’s contacting.
   
-  ### Autumn's Goals/Wishes
-  * Autumn wants more people to know ASL. His brother signs well and his parents know a bit, but they're the only ones in his family who do.
-  * He'd like captions (subtitles) to be more available and to make sense - sometimes they're rubbish and you don't know what they mean. Other times, they're not available and you can't understand the full context, especially for audio-heavy apps like TikTok and Clubhouse.
+  ### Claudia's Goals/Wishes
+  * Claudia wants to be able to watch videos and consume time-based media easily and efficiently.
+  * She also wishes there was less clutter on some websites - she just wants to get on with what she’s doing.
 </details>
 
 Here are a few more examples!
-  * Preventing autoplay can help Deaf and Hard of Hearing people enjoy and engage with videos and audio which otherwise might not be accessible to them.
-  * Turning off autoplay can significantly improve accessibility for people with epilepsy, especially if a video has several flashing screens and/or bright lights.
+  * Turning autoplay can help people with disabilities enjoy and engage with videos and audio which otherwise might not be easy to access (or inaccessible) for them.)
+  * Sometimes it’s hard for Claudia to see time-based media content clearly when she borrows her husband’s tablet, especially if the color contrast isn’t good.
 
 ## How might we help?
 The “autoplay” attribute of the “video” element in HTML is a boolean, meaning that its value is true or false. When boolean attributes are included, they are implicitly true, unless they are specified as false. Both of these lines will result in an autoplaying video:
