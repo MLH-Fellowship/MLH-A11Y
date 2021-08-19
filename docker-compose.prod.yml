@@ -1,6 +1,9 @@
 version: "3" # version of docker-compose we want to use
 
-services: 
+services:
+
+  # ––––– Application –––––
+  # ––––––––––––––––––––––
   client:
     container_name: client
     # build represents where to find docker file (i.e. /app folder)
@@ -76,6 +79,8 @@ services:
     networks:
       - monitoring
 
+  # ––––– Nginx –––––
+  # ––––––––––––––––––––––
   nginx:
     container_name: nginx
     image: jonasal/nginx-certbot:latest
@@ -99,7 +104,6 @@ volumes:
   my_database:
   nginx_secrets:
 
-# Extra layer of security
 networks: 
   api_db:
   nginx_client:
