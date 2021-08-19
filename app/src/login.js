@@ -1,8 +1,24 @@
 import React from 'react';
+import {
+  Redirect,
+  useLocation
+} from 'react-router-dom'
 import axios from 'axios';
 // import ReactMarkdown from 'react-markdown';
 
 export default class Login extends React.Component {
+
+  fakeAuth = {
+    isAuthenticated: false,
+    authenticate(cb) {
+      this.isAuthenticated = true
+      setTimeout(cb, 100) // fake async
+    },
+    signout(cb) {
+      this.isAuthenticated = false
+      setTimeout(cb, 100) // fake async
+    }
+  }
 
   state = {
     username: '',
@@ -25,13 +41,32 @@ export default class Login extends React.Component {
       password: this.state.password,
     };
 
+    fakeAuth.authenticate(() => {
+      setRedirectToReferrer(true)
+    })
+
     axios.post(`/api/login`, { "username": user.username, "password": user.password })
       .then(res => {
         console.log(res);
         console.log(res.data);
       })
   }
+
+
+
   render() {
+
+    const [
+      redirectToReferrer,
+      setRedirectToReferrer
+    ] = React.useState(false)
+  
+    const { state } = useLocation()
+  
+    const login = () => {if (redirectToReferrer === true) {
+      return <Redirect to={state?.from || '/'} />
+    }
+    }
     return (
       <div >
         <h2>Login Page</h2>
@@ -48,5 +83,6 @@ export default class Login extends React.Component {
 
       </div>
     )
-  }
+  
+}
 }
