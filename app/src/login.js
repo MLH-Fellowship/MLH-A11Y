@@ -4,7 +4,6 @@ import {
   useLocation
 } from 'react-router-dom'
 import axios from 'axios';
-// import ReactMarkdown from 'react-markdown';
 
 export default class Login extends React.Component {
 
@@ -28,10 +27,6 @@ export default class Login extends React.Component {
       username: this.state.username,
       password: this.state.password,
     };
-
-    fakeAuth.authenticate(() => {
-      setRedirectToReferrer(true)
-    })
 
     axios.post(`/api/login`, { "username": user.username, "password": user.password })
       .then(res => {
