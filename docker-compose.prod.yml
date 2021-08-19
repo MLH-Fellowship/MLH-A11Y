@@ -1,6 +1,9 @@
 version: "3" # version of docker-compose we want to use
 
-services: 
+services:
+
+  # ––––– Application –––––
+  # ––––––––––––––––––––––
   client:
     container_name: client
     # build represents where to find docker file (i.e. /app folder)
@@ -36,6 +39,48 @@ services:
     networks: 
       - api_db
 
+# ––––– Monitoring –––––
+# ––––––––––––––––––––––
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    ports: 
+      - 9000:3000
+    depends_on: 
+      - prometheus
+    networks:
+      - monitoring
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - cadvisor
+    networks: 
+      - monitoring
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/roots:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - monitoring
+
+  # ––––– Nginx –––––
+  # ––––––––––––––––––––––
   nginx:
     container_name: nginx
     image: jonasal/nginx-certbot:latest
@@ -53,27 +98,15 @@ services:
     networks: 
       - nginx_api
       - nginx_client
-
-  # cAdvisor not supported due to AWS instance limits (Memory)
-  # cadvisor:
-  #   container_name: cadvisor
-  #   image: gcr.io/cadvisor/cadvisor:latest
-  #   restart: unless-stopped
-  #   ports: 
-  #     - 8080:8080
-  #   volumes:
-  #     - /:/roots:ro
-  #     - /var/run:/var/run:rw
-  #     - /sys:/sys:ro
-  #     - /var/lib/docker/:/var/lib/docker:ro
+      - monitoring
 
 volumes:
   my_database:
   nginx_secrets:
 
-# Extra layer of security
 networks: 
   api_db:
   nginx_client:
   nginx_api:
+  monitoring:
 

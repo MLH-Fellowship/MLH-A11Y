@@ -1,6 +1,9 @@
 version: "3" # version of docker-compose we want to use
 
 services: 
+
+  # ––––– Application –––––
+  # ––––––––––––––––––––––
   client:
     # build represents where to find docker file (i.e. /app folder)
     container_name: client
@@ -32,50 +35,81 @@ services:
       - db
     networks: 
       - nginx_api
+      - api_db
 
   db:
     container_name: postgres-db
-    image: postgres
+    image: postgres:latest
     restart: always
     # Add persistence to postgres
     volumes:
-      - my_database:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     env_file:
       - .env
     networks: 
-      - api_db_network
+      - api_db
 
+# ––––– Monitoring –––––
+# ––––––––––––––––––––––
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    environment:
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
+    ports: 
+      - 3000:3000
+    depends_on: 
+      - prometheus
+    networks: 
+      - monitoring
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - cadvisor
+    networks: 
+      - monitoring
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8081:8080
+    volumes:
+      - /:/roots:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks: 
+      - monitoring
+
+# –––– Nginx ––––
   nginx:
     container_name: nginx
     image: nginx:alpine
     restart: always
     ports:
-      - 280:80
+      - 80:80
     volumes:
       - ./nginx/nginx-conf-dev.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
       - nginx_client
       - nginx_api
-
-  # cAdvisor always works, commenting to focus on what we are building
-  # cadvisor:
-  #   container_name: cadvisor
-  #   image: gcr.io/cadvisor/cadvisor:latest
-  #   restart: unless-stopped
-  #   ports:
-  #     - 8080:8080
-  #   volumes:
-  #     - /:/roots:ro
-  #     - /var/run:/var/run:rw
-  #     - /sys:/sys:ro
-  #     - /var/lib/docker/:/var/lib/docker:ro
+      - monitoring
 
 volumes:
-  my_database:
+  db:
 
-
-# Added for extra security (client doesn't have access to DB)
 networks:
-  api_db_network:
+  api_db:
   nginx_client:
   nginx_api:
+  monitoring:

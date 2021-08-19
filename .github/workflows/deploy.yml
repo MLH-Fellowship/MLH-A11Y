@@ -29,7 +29,7 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
 
       - name: Deploy site
-        run: ssh my-vm 'cd ${{ secrets.PROJECT_DIR }} && git fetch && git reset --hard origin/main && docker-compose down --remove-orphans && docker-compose -f docker-compose.prod.yml up -d --build'
+        run: ssh my-vm 'cd ${{ secrets.PROJECT_DIR }} && git fetch && git reset --hard origin/main && docker-compose down && docker-compose -f docker-compose.prod.yml up -d --build'
 
       - name: Check deploy status
         run: ssh my-vm 'cd ${{ secrets.PROJECT_DIR }} && docker-compose ps'
@@ -37,9 +37,8 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
-      # - name: Verify deployment
-      #   Comment out when we add prod-test.sh
-      #   run: sleep 5 && bash prod-test.sh
+      - name: User Auth Test
+        run: sleep 5 && bash prod-test.sh
 
       - name: Discord success notification
         run: sleep 10 && curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful! Check it out at https://mlha11y.tech"
