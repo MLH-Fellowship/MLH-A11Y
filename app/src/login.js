@@ -8,18 +8,6 @@ import axios from 'axios';
 
 export default class Login extends React.Component {
 
-  fakeAuth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-      this.isAuthenticated = true
-      setTimeout(cb, 100) // fake async
-    },
-    signout(cb) {
-      this.isAuthenticated = false
-      setTimeout(cb, 100) // fake async
-    }
-  }
-
   state = {
     username: '',
     password: '',
@@ -56,17 +44,6 @@ export default class Login extends React.Component {
 
   render() {
 
-    const [
-      redirectToReferrer,
-      setRedirectToReferrer
-    ] = React.useState(false)
-  
-    const { state } = useLocation()
-  
-    const login = () => {if (redirectToReferrer === true) {
-      return <Redirect to={state?.from || '/'} />
-    }
-    }
     return (
       <div >
         <h2>Login Page</h2>

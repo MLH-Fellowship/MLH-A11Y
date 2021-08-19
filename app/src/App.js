@@ -7,13 +7,14 @@ import HomeMarkdown from './home';
 import UserMarkdown from './userprofile';
 import LogIn from './login';
 import Register from './register';
-import Unauthorized from './unauthorizedjs'
+import Unauthorized from './unauthorized.js'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom"
 
 function App() {
@@ -72,7 +73,7 @@ function App() {
           </div>
         </div>
       </Router>
-      
+
     </div>
   );
 }
@@ -93,7 +94,7 @@ const fakeAuth = {
  * `authContext`, `ProvideAuth`, `useAuth` and `useProvideAuth`
  * refer to: https://usehooks.com/useAuth/
  */
-const authContext = createContext();
+const authContext = React.createContext();
 
 function ProvideAuth({ children }) {
   const auth = useProvideAuth();
@@ -105,11 +106,11 @@ function ProvideAuth({ children }) {
 }
 
 function useAuth() {
-  return useContext(authContext);
+  return React.useContext(authContext);
 }
 
 function useProvideAuth() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = React.useState(null);
 
   const signin = cb => {
     return fakeAuth.signin(() => {
