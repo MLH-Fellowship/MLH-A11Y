@@ -6,7 +6,8 @@ import Unit3 from './unit3';
 import HomeMarkdown from './home';
 import UserMarkdown from './userprofile';
 import LogIn from './login';
-import Register from './register'
+import Register from './register';
+import PrivateRoute from './PrivateRoute.js'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -43,18 +44,18 @@ function App() {
           </Navbar>
           <div class="page-content">
             <Switch>
-              <Route path="/unit1">
+              <PrivateRoute path="/unit1">
                 <Unit1 unit={"1"} />
-              </Route>
-              <Route path="/unit2">
+              </PrivateRoute>
+              <PrivateRoute path="/unit2">
                 <Unit2 unit={"2"} />
-              </Route>
-              <Route path="/unit3">
+              </PrivateRoute>
+              <PrivateRoute path="/unit3">
                 <Unit3 unit={"3"} />
-              </Route>
-              <Route path="/user">
+              </PrivateRoute>
+              <PrivateRoute path="/user">
                 <UserMarkdown />
-              </Route>
+              </PrivateRoute>
               <Route path="/login">
                 <LogIn />
               </Route>
