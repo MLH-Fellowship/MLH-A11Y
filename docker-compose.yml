@@ -55,10 +55,14 @@ services:
     container_name: grafana
     image: grafana/grafana:latest
     restart: unless-stopped
+    environment:
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
     ports: 
-      - 9000:3000
+      - 3000:3000
     depends_on: 
       - prometheus
+    networks: 
+      - monitoring
 
   prometheus:
     image: prom/prometheus:latest
@@ -71,19 +75,23 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - cadvisor
+    networks: 
+      - monitoring
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
     ports:
-      - 8080:8080
+      - 8081:8080
     volumes:
       - /:/roots:ro
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+    networks: 
+      - monitoring
 
-# –––– Proxy ––––
+# –––– Nginx ––––
   nginx:
     container_name: nginx
     image: nginx:alpine
@@ -95,15 +103,13 @@ services:
     networks:
       - nginx_client
       - nginx_api
-
-
+      - monitoring
 
 volumes:
   db:
 
-
-# Added for extra security (client doesn't have access to DB)
 networks:
   api_db:
   nginx_client:
   nginx_api:
+  monitoring:
