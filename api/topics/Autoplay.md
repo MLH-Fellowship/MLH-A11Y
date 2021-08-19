@@ -1,6 +1,6 @@
 # Autoplay
 
-Autoplay on time-based media can be very distracting. It can also just be inconvenient! If you’ve ever been in a public space when a particularly obnoxious ad began to play, you know what we're talking about.
+Autoplay on time-based media can be very distracting. It can also just be inconvenient! If you’ve ever been in a public space when a particularly obnoxious ad began to play, you might know what we're talking about.
 
 * That's why Google Chrome and some other browsers have recently disabled autoplay for unmuted videos!
 
@@ -37,12 +37,14 @@ The “autoplay” attribute of the “video” element in HTML is a boolean, me
 
 
 Code Sample #1:
-```
+
+```html
 <video width="320" height="240" controls autoplay>
 ```
 
 Code Sample #2:
-```
+
+```html
 <video width="320" height="240" controls autoplay="true">
 ```
 
@@ -52,13 +54,16 @@ Given these examples, can you think of how to stop a video from autoplaying?
 
 See the comment in the code editor below? Replace that text with the syntax above, and substitute the labels, source language, and file path to help us find out what the characters in the video are saying!
 
-```
+```html
 <video width="320" height="240" controls {INSERT_AUTOPLAY_CONFIG_HERE}>
 <source src="videos/falling_fruit.mp4" type="video/mp4">
 </video>
 ```
 
-
+<figure>
+<iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nikhilvytla1/AutoplayExercise1?lite=1?outputonly=1">
+</iframe>
+</figure>
 
 
 ## Answer
@@ -71,22 +76,17 @@ First, what is a boolean?
 There might be multiple answers! Turning off autoplay can be implemented in a few different ways, like the options shown below.
 
 The first option: set `autoplay` to `off`.
-```
+
+```html
 <video width="320" height="240" controls autoplay=off>
 <source src="videos/falling_fruit.mp4" type="video/mp4">
 </video>
 ```
 
 The second option: delete `autoplay` from the `video` tag.
-```
+
+```html
 <video width="320" height="240" controls>
 <source src="videos/falling_fruit.mp4" type="video/mp4">
 </video>
 ```
-
-### Testing
-
-<figure>
-<iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nikhilvytla1/AutoplayExercise1?lite=1?outputonly=1">
-</iframe>
-</figure>
