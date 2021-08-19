@@ -18,15 +18,18 @@ When working with time-based media, captioning is important because it helps lot
   * Saleem uses ASL as his main language, English is his second languages, and always has video captions switched on.
   
   ### Saleem's Technology
+
   * Saleem has an Android tablet, and loves being able to sign to his friends on video chat. He's sharing his family's laptop until he can afford his own.
   * He also has an iPhone that his brother gave him. He's tried using it for video chat, but it's harder to see what people are saying as the screen's quite small.
   
   ### Saleem's Goals/Wishes
+
   * Saleem wants more people to know ASL. His brother signs well and his parents know a bit, but they're the only ones in his family who do.
   * He'd like captions (subtitles) to be more available and to make sense - sometimes they're rubbish and you don't know what they mean. Other times, they're not available and you can't understand the full context, especially for audio-heavy apps like TikTok and Clubhouse.
 </details>
 
 Here are a few more examples!
+
   * Captions can help Deaf and Hard of Hearing people enjoy and engage with videos and audio which otherwise might not be accessible to them.
   * Captions can help some people who have trouble concentrating, such as those with ADHD, keep track of what’s happening.
   * Captions can help anyone trying to watch their favorite Netflix show while a younger sibling is shouting or banging on their musical instrument of choice.
@@ -46,7 +49,7 @@ We've also received the syntax for implementing English-language captions:
 
 ### Implementing Captions in Code
 
-See the comment in the code editor below? Replace that text with the syntax above, and substitute the labels, source language, and file path to help us find out what the characters in the video are saying!
+See the comment in the code editor below? Replace that text in `index.html` with the syntax above, and substitute the labels, source language, and file path to help us find out what the audio in the video is saying!
 
 ```html
 <video id="my-video-stream" width="800" height="600" controls>
