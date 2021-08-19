@@ -7,7 +7,7 @@ import HomeMarkdown from './home';
 import UserMarkdown from './userprofile';
 import LogIn from './login';
 import Register from './register';
-import PrivateRoute from './PrivateRoute.js'
+import Unauthorized from './unauthorizedjs'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -62,6 +62,9 @@ function App() {
               <Route path="/register">
                 <Register />
               </Route>
+              <Route path="/unauthorized">
+                <Unauthorized />
+              </Route>
               <Route path="/">
                 <HomeMarkdown />
               </Route>
@@ -69,7 +72,84 @@ function App() {
           </div>
         </div>
       </Router>
+      
     </div>
+  );
+}
+
+const fakeAuth = {
+  isAuthenticated: false,
+  signin(cb) {
+    fakeAuth.isAuthenticated = true;
+    setTimeout(cb, 100); // fake async
+  },
+  signout(cb) {
+    fakeAuth.isAuthenticated = false;
+    setTimeout(cb, 100);
+  }
+};
+
+/** For more details on
+ * `authContext`, `ProvideAuth`, `useAuth` and `useProvideAuth`
+ * refer to: https://usehooks.com/useAuth/
+ */
+const authContext = createContext();
+
+function ProvideAuth({ children }) {
+  const auth = useProvideAuth();
+  return (
+    <authContext.Provider value={auth}>
+      {children}
+    </authContext.Provider>
+  );
+}
+
+function useAuth() {
+  return useContext(authContext);
+}
+
+function useProvideAuth() {
+  const [user, setUser] = useState(null);
+
+  const signin = cb => {
+    return fakeAuth.signin(() => {
+      setUser("user");
+      cb();
+    });
+  };
+
+  const signout = cb => {
+    return fakeAuth.signout(() => {
+      setUser(null);
+      cb();
+    });
+  };
+
+  return {
+    user,
+    signin,
+    signout
+  };
+}
+
+function PrivateRoute({ children, ...rest }) {
+  let auth = useAuth();
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        auth.user ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/unauthorized",
+              state: { from: location }
+            }}
+          />
+        )
+      }
+    />
   );
 }
 
