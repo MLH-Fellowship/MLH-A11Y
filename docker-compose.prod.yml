@@ -45,13 +45,15 @@ services:
     container_name: grafana
     image: grafana/grafana:latest
     restart: unless-stopped
+    environment:
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
     ports: 
-      - 9000:3000
+      - 3000:3000
     depends_on: 
       - prometheus
-    networks:
+    networks: 
       - monitoring
-
+  
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -92,7 +94,7 @@ services:
       - 443:443
     volumes:
       - nginx_secrets:/etc/letsencrypt
-      - ./nginx/nginx-conf.conf:/etc/nginx/user_conf.d/default.conf:ro
+      - ./nginx/nginx-conf-prod.conf:/etc/nginx/user_conf.d/default.conf:ro
     depends_on:
       - client
     networks: 

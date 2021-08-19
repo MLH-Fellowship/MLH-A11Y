@@ -6,6 +6,18 @@ const Markdown2 = (props) => {
 
     const [markdown, setMarkdown] = React.useState('Under Construction')
 
+
+    let history = useHistory();
+    let location = useLocation();
+    let auth = useAuth();
+  
+    let { from } = location.state || { from: { pathname: "/" } };
+    let login = () => {
+      auth.signin(() => {
+        history.replace(from);
+      });
+    };
+    
     React.useEffect(() => {
         axios.get(`/api/unauthorized`)
 
