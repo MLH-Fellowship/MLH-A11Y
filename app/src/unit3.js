@@ -1,5 +1,5 @@
 import React from 'react';
-
+import rehypeRaw from 'rehype-raw';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 
@@ -17,7 +17,7 @@ const Markdown2 = (props) => {
 
     return (
         <div>
-            <ReactMarkdown>{markdown}</ReactMarkdown>
+            <ReactMarkdown rehypePlugins={[rehypeRaw]}>{markdown}</ReactMarkdown>
         </div>
     )
 }
