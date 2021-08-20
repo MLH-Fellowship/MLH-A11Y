@@ -1,67 +1,166 @@
 ##### `source` [hackmd.io](https://hackmd.io/nvkpyo3UQTa689uGz373eg)
-##### tags: `accessibility` `LMS` `education` `tech` `React` `Python` `Flask`
+##### tags: `accessibility` `LMS` `education` `tech` `React` `Python` `Flask` `Docker` `Grafana` `Prometheus` `cAdvisor` `docker-compose`
+
 # MLH A11y
 
-Building an interactive learning management system (LMS) that helps expose MLH Fellows to digital accessibility by providing resources and an intro to automated accessibility testing.
+**App Description:** Building an interactive learning management system (LMS) that helps expose MLH Fellows to digital accessibility by providing resources and an intro to automated accessibility testing.
 
-### Tech Stack
+### Table of Contents
 
-- Back-end: Python, Flask (API, send back data)
-- Front-end: React (API calls)
+- [Setup/Installation](#SetupInstallation-🏗)
+- [Tech Stack](#Tech-Stack-🍔)
+  - [Client](#Client)
+  - [Web server](#Web-Server)
+  - [Database](#Database)
+  - [Containers](#Containers)
+  - [CI/CD](#CI/CD)
+  - [Monitoring](#Monitoring)
+  - [Deployment](#Deployment)
+- [Issues Encountered](#Issues-Encountered)
+- [Authors](#Authors)
 
-Database Requirements
+## Setup/Installation 🏗
 
-- Authentication (Login/Register)
-- Progress Counter
+**Required**
+1. Install [Docker](https://docs.docker.com/get-docker/)
+2. Run `docker-compose up -d --build`
+3. Navigate to `http://localhost/` in your browser
 
-LMS Platform Requirements
-- Framework
-    - Markdown >> React
-        - https://github.com/remarkjs/react-markdown
-        - https://github.com/markedjs/marked
-- At least 3 small Units/Sections
-    - Small Unit 1
-    	- Alt text (what does a website experience feel like for a screen reader?)
-    	- Animations (how to make websites more accessible for people with epilepsy?)
-    	- etc.
-    - Small Unit 2
-        - note
-    - Small Unit 3
-			- Note
+**Optional**
+1. Navigate to `http://localhost/grafana` to set up Grafana
+	- For more info, check out: [Docker monitoring with cAdvisor, Prometheus, and Grafana](https://medium.com/@mertcan.simsek276/docker-monitoring-with-cadvisor-prometheus-and-grafana-adefe1202bf8)
 
-### MLH Requirements
+## Tech Stack 🍔
 
-Web Server
+### Client
 
-- A backend web server that will host the application. This must be written using Python, but you're not limited to Flask.
-- You're welcome to have a separate front end written in React and treat the backend as an API, but this is not a requirement. We encourage that you don't do this unless you're confident using React or a similar JavaScript framework.
+We primarily used Markdown to create educational content for lessons and structure the majority of the website, which we then rendered into React. The React files are connected through the use of React Router, which allows the user to navigate between pages.
 
-Database
+- [**React**](https://reactjs.org/) – main front-end framework
+- [**React Markdown**](https://github.com/remarkjs/react-markdown) – render Markdown files in web app
+- [**React Router**](https://reactrouter.com/) - allows navigation between different webpages
+- [**Bootstrap**](https://getbootstrap.com/) - creates user-friendly components
+- [**rehypeRaw**](https://github.com/rehypejs/rehype-raw) - enables inline HTML rendering within Markdown
+- [**Axios**](https://github.com/sheaivey/react-axios) – supports get and post requests
 
-- This can be any type of database, but bonus points for having it inside of a Docker container. It needs to be running on the same machine, and can't be hosted in the cloud like Firebase.
+### Web Server
 
-Container
+For our project, we integrated a Python Flask server that works as an API for sending/receiving data and handling user authentication.
 
-- You need at least 1 container so the final project is deployed using Docker.
-- Bonus points for isolating different components like your web server, database, and NGINX.
-
-
-CI/CD
-
-- You must use a CI/CD system like GitHub Actions to automatically deploy your container to AWS.
-- Bonus points for using CI/CD to run automated tests and linters against your code when you make Pull Requests.
-
-Monitoring
-
-- Your project must have a monitoring system to help you ensure it's operating smoothly. This can be one of the systems covered in Week 6 or something else.
-
-Deployment
-
-- This must be deployed to AWS using a reverse proxy like NGINX.
-- Bonus points for hosting it with a domain. You can grab a .tech domain from Domain.comusing the following offer codes:
+Tech Used
+- **Python**
+- [**Flask**](https://flask.palletsprojects.com/en/2.0.x/) – API, user auth
 
 
-Sprint 1: AUG21HACK
-Sprint 2: MINTCHOCOCHIP
-Sprint 3: ICECREAMSUNDAE
-Note: the code changes on Fridays. Sprint 2 code will begin on August 6th.
+**API Endpoints**
+
+User authentication
+
+| HTTP Verb | Endpoint | Description |
+| -------- | -------- | -------- |
+| `POST`   | /register     | register new user     |
+| `POST`   | /login     | login user     |
+
+Other/Misc
+
+| HTTP Verb | Endpoint | Description |
+| -------- | --------  | -------- |
+| `GET`   | /health    | api health check  |
+
+### Database 
+
+We installed a PostgreSQL database containerized using the PostgreSQL image in the Docker registry. 
+
+- [**PostgreSQL**](https://www.postgresql.org/) – database
+- [**Flask SQLAlchemy**](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) – ORM extension for handling our data from Postgre
+- [**Flask Migrate**](https://flask-migrate.readthedocs.io/en/latest/) – handles Flask SQLAlchemy database migrations 
+
+User
+
+| Property | Type | Description |
+| -------- | -------- | -------- |
+| username | string | user's username |
+| password | string  | user's password | 
+
+
+### Containers
+
+In our project, we containerized and isolated necessary components of our application. In addition, we created two different docker-compose files to differentiate production and development. This helped us be more efficient and productive developing in our project. Below is a table that represents the containers, networks, and dependencies of this project (from docker-compose):
+
+| Container Name | Component | Networks | Depends On
+| -------- | -------- | -------- | ---- | 
+| app   | React app (front-end)| nginx_client | api
+| api   | Flask web server| api_db, nginx_api | db
+| db    | PostgreSQL db | api_db       | n/a
+| nginx | Nginx server | nginx_api, nginx_client, monitoring | n/a
+| cadvisor   | Container Monitoring | monitoring   | n/a
+| prometheus | Prometheus data gathering | monitoring | cadvisor
+| grafana    | Monitoring visualization| monitoring | prometheus
+
+### CI/CD
+
+For our continuous integration, we integrated linting testers for python in our project, docker-build tester, and a deploy workflow (embedded with an endpoint check to verify deployment) and a discord notification for a successful deployment.
+
+- Docker build – test client and web server docker images 
+- Linters (ex. `black` and `flake8` for Flask-based backend)
+- User authentication endpoint testing (see `test-prod.sh`)
+- Deployment – ssh to AWS CentOS instance and deploy app using docker-compose
+	- Success/Failure notification through Discord webhook
+		<img src="https://i.imgur.com/Y5hXmx5.png" height=300>
+
+| Workflow 			| Run on | Description |
+| -------- 			| -------- | -------- |
+| docker-build	| push to master/pull request | run docker-build tests |
+| linters	| push to master/pull request | run python linters |
+| deploy	| push to master | deploy application to AWS |
+
+
+
+### Monitoring
+
+For our project, we setup three monitoring tools. We setup cAdvisor, Prometheus, and Grafana. These three monitoring tools depend on one another. The dependency line is as follows: cAdvisor --> Prometheus --> Grafana. Grafana is setup runnin on the `/grafana` endpoint of our application. Monitoring tools endpoints:
+
+- cadvisor: `/cadvsisor`
+- grafana: `/grafana`
+
+**Grafana**
+
+<img src="https://i.imgur.com/RGY5fNI.png" height=300>
+
+**cAdvisor**
+
+<img src="https://i.imgur.com/nJu2jl8.png" height=300>
+
+**Prometheus**
+
+<img src="https://i.imgur.com/588I1ty.png" width=600>
+
+
+
+### Deployment
+
+MLH-A11y is deployed on t2.medium CentOS Stream 8 EC2 instance hosted on AWS. The domain, [mlha11y.tech](https://mlha11y.tech), was bought and configured on Domain.com, and is secured with [Let's Encrypt](https://letsencrypt.org/) using `certbot-nginx`.
+
+## Issues Encountered
+
+#### Web Server/DB Issues
+
+When building our web server, we had some trouble using requesting data from our markdown files and converting it into React for the different unit pages. However, we got around this by using Axios. We decided to use `axios.get` in order to retrieve the markdown file and set its contents as a variable.
+
+#### Client Issues
+
+In launching our unit-based educational approach, we initially dealt with several barriers in finding appropriate libraries to easily and efficiently render lesson material, videos, and content. We immediately began looking at the options and settled on `react-markdown`, a library by `remarkjs` for rendering markdown files in React. We immediately came across an obstacle: delivering interactive and reactive markdown-based content - a key feature we wanted to implement to ensure that users would be able to get hands-on experience with coding using custom [Repl.it](https://replit.com) exercises. The base implementation of `react-markdown` did not enable us to render inline HTML, but we were able to resolve this issue by utilizing the `rehypeRaw` [package](https://github.com/rehypejs/rehype-raw), allowing us to both style and customize our Markdown templates to a greater degree.
+
+We also had some issues with created protected routes for some of the pages. We originally wanted to have the unit pages only be accessible when logged in, but we kept getting errors that various variables are undefined.
+
+
+#### Production Issues
+
+We encountered several speed bumps with securing our routing, using `nginx` and Docker, and setting up monitoring tools like Prometheus and Grafana. Early on, the most notable issue was that our project's full dependencies would consistently crash our VM on each `docker-compose up --build` command. As a stop-gap, we had to reboot our t2.micro instance, remove all Docker containers, generated files, volumes, and images, and rebuild. This was a tedious process, but after we received the go-ahead to upgrade our instance to a t2.medium, we were able to resolve other docker-based issues with relative ease.
+
+## Authors
+
+- Guillermo Sanchez – [**@membriux**](https://github.com/membriux)
+- Nikhil Vytla - [**@nikhil-vytla**](https://github.com/nikhil-vytla)
+- Ashley Ye - [**@ashleyye**](https://github.com/ashleyye)
+
