@@ -53,6 +53,8 @@ services:
       - prometheus
     networks: 
       - monitoring
+    volumes:
+      - grafana_storage:/var/lib/grafana
   
   prometheus:
     image: prom/prometheus:latest
@@ -105,6 +107,7 @@ services:
 volumes:
   my_database:
   nginx_secrets:
+  grafana_storage:
 
 networks: 
   api_db:
