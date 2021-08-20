@@ -45,18 +45,18 @@ function App() {
           </Navbar>
           <div class="page-content">
             <Switch>
-              <PrivateRoute path="/unit1">
+              <Route path="/unit1">
                 <Unit1 unit={"1"} />
-              </PrivateRoute>
-              <PrivateRoute path="/unit2">
+              </Route>
+              <Route path="/unit2">
                 <Unit2 unit={"2"} />
-              </PrivateRoute>
-              <PrivateRoute path="/unit3">
+              </Route>
+              <Route path="/unit3">
                 <Unit3 unit={"3"} />
-              </PrivateRoute>
-              <PrivateRoute path="/user">
+              </Route>
+              <Route path="/user">
                 <UserMarkdown />
-              </PrivateRoute>
+              </Route>
               <Route path="/login">
                 <LogIn />
               </Route>
