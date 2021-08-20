@@ -7,8 +7,8 @@
 
 ### Table of Contents
 
-- [Setup/Installation](#SetupInstallation-🏗)
-- [Tech Stack](#Tech-Stack-🍔)
+- [Setup/Installation](#SetupInstallation-)
+- [Tech Stack](#Tech-Stack-)
   - [Client](#Client)
   - [Web server](#Web-Server)
   - [Database](#Database)
